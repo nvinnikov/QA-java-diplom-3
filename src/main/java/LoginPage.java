@@ -6,8 +6,8 @@ public class LoginPage {
     public final static By registerButton = By.xpath(".//a[text()='Зарегистрироваться']");
     final static By emailField = By.xpath(".//input[@type='text']");
     final static By passwordField = By.xpath(".//input[@type='password']");
-    private final static By loginButton = By.xpath(".//button[text()='Войти']");
     final static By forgotPasswordButton = By.xpath(".//a[text()='Восстановить пароль']");
+    private final static By loginButton = By.xpath(".//button[text()='Войти']");
     private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {

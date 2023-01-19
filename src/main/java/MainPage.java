@@ -3,15 +3,14 @@ import org.openqa.selenium.WebDriver;
 
 public class MainPage {
     public static final String PAGE_URL = "https://stellarburgers.nomoreparties.site/";
-    private final static By loginLkLink = By.xpath(".//p[text()='Личный Кабинет']");
-    private final static By loginLkButton = By.xpath(".//button[text()='Войти в аккаунт']");
     final static By bulkiButton = By.xpath(".//span[text()='Булки']/..");
     final static By souseButton = By.xpath(".//span[text()='Соусы']/..");
     final static By nachinkiButton = By.xpath(".//span[text()='Начинки']/..");
     final static By bulkiHeader = By.xpath(".//h2[text()='Булки']");
     final static By souseHeader = By.xpath(".//h2[text()='Соусы']");
     final static By nachinkiHeader = By.xpath(".//h2[text()='Начинки']");
-
+    private final static By loginLkLink = By.xpath(".//p[text()='Личный Кабинет']");
+    private final static By loginLkButton = By.xpath(".//button[text()='Войти в аккаунт']");
     private final WebDriver driver;
 
     public MainPage(WebDriver driver) {
@@ -41,6 +40,7 @@ public class MainPage {
     public void clickNachinkiButton() {
         driver.findElement(nachinkiButton).click();
     }
+
     public void findBulkiHeader() {
         driver.findElement(bulkiHeader);
     }
