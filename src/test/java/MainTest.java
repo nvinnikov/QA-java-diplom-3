@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +22,11 @@ public class MainTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickNachinkiButton();
+        mainPage.findNachinkiHeader();
         mainPage.clickBulkiButton();
-        mainPage.clickNachinkiButton();
+        mainPage.findBulkiHeader();
+        mainPage.clickSouseButton();
+        mainPage.findSouseHeader();
     }
 
     @After

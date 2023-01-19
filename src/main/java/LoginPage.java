@@ -4,10 +4,10 @@ import org.openqa.selenium.WebDriver;
 public class LoginPage {
     public static final String PAGE_URL = "https://stellarburgers.nomoreparties.site/login";
     public final static By registerButton = By.xpath(".//a[text()='Зарегистрироваться']");
-    private final static By emailField = By.xpath(".//input[@type='text']");
-    private final static By passwordField = By.xpath(".//input[@type='password']");
+    final static By emailField = By.xpath(".//input[@type='text']");
+    final static By passwordField = By.xpath(".//input[@type='password']");
     private final static By loginButton = By.xpath(".//button[text()='Войти']");
-    private final static By forgotPasswordButton = By.xpath(".//a[text()='Восстановить пароль']");
+    final static By forgotPasswordButton = By.xpath(".//a[text()='Восстановить пароль']");
     private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {

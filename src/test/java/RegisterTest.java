@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Random;
@@ -35,12 +37,10 @@ public class RegisterTest {
         registerPage.inputEmail(email);
         registerPage.inputPassword(password);
         registerPage.clickRegister();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        String newUrl = driver.getCurrentUrl();
-        //Assert.assertEquals(LoginPage.PAGE_URL,newUrl);
-
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(LoginPage.forgotPasswordButton));
+        Assert.assertEquals(LoginPage.PAGE_URL, driver.getCurrentUrl());
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
-
         api.LoginUser loginUser = new api.LoginUser(email, password);
         Response response = api.UserClient.postApiAuthLogin(loginUser);
         response.then().assertThat().body("success", equalTo(true))
