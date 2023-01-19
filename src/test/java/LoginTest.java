@@ -1,3 +1,6 @@
+import com.google.gson.Gson;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.util.Random;
 
+import static org.hamcrest.Matchers.equalTo;
+
 public class LoginTest {
     private WebDriver driver;
     private String email;
@@ -15,7 +20,8 @@ public class LoginTest {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver","/Users/nvinnikov/Downloads/WebDriver/bin/chromedriver");
+        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
+        System.setProperty("webdriver.chrome.driver", "/Users/nvinnikov/Downloads/WebDriver/bin/chromedriver");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         RegisterPage registerPage = new RegisterPage(driver);
@@ -28,8 +34,9 @@ public class LoginTest {
         registerPage.inputPassword(password);
         registerPage.clickRegister();
     }
+
     @Test
-    public void checkLoginLkButton(){
+    public void checkLoginLkButton() {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickLoginLkButton();
@@ -40,8 +47,9 @@ public class LoginTest {
         loginPage.clickLogin();
         //Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
+
     @Test
-    public void checkLoginLkLink(){
+    public void checkLoginLkLink() {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickLoginLkLink();
@@ -52,8 +60,9 @@ public class LoginTest {
         loginPage.clickLogin();
         //Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
+
     @Test
-    public void checkLoginOnRegisterPage(){
+    public void checkLoginOnRegisterPage() {
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.open();
         registerPage.clickLogin();
@@ -64,8 +73,9 @@ public class LoginTest {
         loginPage.clickLogin();
         //Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
+
     @Test
-    public void checkLoginOnForgotPasswordButton(){
+    public void checkLoginOnForgotPasswordButton() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         loginPage.clickForgotPassword();
@@ -78,8 +88,23 @@ public class LoginTest {
         loginPage.clickLogin();
         //Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
+
     @After
     public void cleanUp() {
         driver.quit();
+        api.LoginUser loginUser = new api.LoginUser(email, password);
+        Response response = api.UserClient.postApiAuthLogin(loginUser);
+        response.then().assertThat().body("success", equalTo(true))
+                .and()
+                .statusCode(200);
+        String responseString = response.body().asString();
+        Gson gson = new Gson();
+        api.LoginUserResponse loginUserResponse = gson.fromJson(responseString, api.LoginUserResponse.class);
+        String accessToken = loginUserResponse.getAccessToken();
+        api.UserClient.deleteApiAuthUser(accessToken).then().assertThat().body("success", equalTo(true))
+                .and()
+                .body("message", equalTo("User successfully removed"))
+                .and()
+                .statusCode(202);
     }
 }
