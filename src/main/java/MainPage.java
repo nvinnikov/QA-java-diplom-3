@@ -1,16 +1,19 @@
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
     public static final String PAGE_URL = "https://stellarburgers.nomoreparties.site/";
-    final static By bulkiButton = By.xpath(".//span[text()='Булки']/..");
-    final static By souseButton = By.xpath(".//span[text()='Соусы']/..");
-    final static By nachinkiButton = By.xpath(".//span[text()='Начинки']/..");
-    final static By bulkiHeader = By.xpath(".//h2[text()='Булки']");
-    final static By souseHeader = By.xpath(".//h2[text()='Соусы']");
-    final static By nachinkiHeader = By.xpath(".//h2[text()='Начинки']");
-    private final static By loginLkLink = By.xpath(".//p[text()='Личный Кабинет']");
-    private final static By loginLkButton = By.xpath(".//button[text()='Войти в аккаунт']");
+    private final By bulkiButton = By.xpath(".//span[text()='Булки']/..");
+    private final By souseButton = By.xpath(".//span[text()='Соусы']/..");
+    private final By nachinkiButton = By.xpath(".//span[text()='Начинки']/..");
+    private final By loginLkLink = By.xpath(".//p[text()='Личный Кабинет']");
+    private final By loginLkButton = By.xpath(".//button[text()='Войти в аккаунт']");
+    private final By currentTabHeader = By.xpath(".//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span");
+    private final By anotherTabHeader = By.xpath(".//div[@class='tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']/span");
+
     private final WebDriver driver;
 
     public MainPage(WebDriver driver) {
@@ -41,16 +44,33 @@ public class MainPage {
         driver.findElement(nachinkiButton).click();
     }
 
-    public void findBulkiHeader() {
-        driver.findElement(bulkiHeader);
+    public String checkCurrentTabHeaderText() {
+        return driver.findElement(currentTabHeader).getText();
     }
+//    public void checkNachinkiHeader() {
+//
+//    }
+//    public void checkBulkiHeader() {
+//        driver.findElement(currentTabHeader).getText();
+//    }
+//    public void checkSouseHeader() {
+//        driver.findElement(currentTabHeader).getText();
+//    }
 
-    public void findSouseHeader() {
-        driver.findElement(souseHeader);
+    public void waitMainPage() {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(bulkiButton));
     }
-
-    public void findNachinkiHeader() {
-        driver.findElement(nachinkiHeader);
+    public void waitNachinkiHeader() {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(nachinkiButton));
     }
-
+    public void waitBulkiHeader() {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(bulkiButton));
+    }
+    public void waitSouseHeader() {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(souseButton));
+    }
 }

@@ -1,13 +1,15 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     public static final String PAGE_URL = "https://stellarburgers.nomoreparties.site/login";
-    public final static By registerButton = By.xpath(".//a[text()='Зарегистрироваться']");
-    final static By emailField = By.xpath(".//input[@type='text']");
-    final static By passwordField = By.xpath(".//input[@type='password']");
-    final static By forgotPasswordButton = By.xpath(".//a[text()='Восстановить пароль']");
-    private final static By loginButton = By.xpath(".//button[text()='Войти']");
+    public final By registerButton = By.xpath(".//a[text()='Зарегистрироваться']");
+    private final By emailField = By.xpath(".//input[@type='text']");
+    private final By passwordField = By.xpath(".//input[@type='password']");
+    private final By forgotPasswordButton = By.xpath(".//a[text()='Восстановить пароль']");
+    private final By loginButton = By.xpath(".//button[text()='Войти']");
     private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {
@@ -36,5 +38,10 @@ public class LoginPage {
 
     public void open() {
         driver.get(PAGE_URL);
+    }
+
+    public void waitLoginPage() {
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(emailField));
     }
 }

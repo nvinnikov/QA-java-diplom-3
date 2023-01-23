@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -20,12 +21,14 @@ public class MainTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
-        mainPage.clickNachinkiButton();
-        mainPage.findNachinkiHeader();
-        mainPage.clickBulkiButton();
-        mainPage.findBulkiHeader();
+        Assert.assertEquals("Булки", mainPage.checkCurrentTabHeaderText());
         mainPage.clickSouseButton();
-        mainPage.findSouseHeader();
+        mainPage.waitNachinkiHeader();
+        Assert.assertEquals("Соусы", mainPage.checkCurrentTabHeaderText());
+        mainPage.clickNachinkiButton();
+        mainPage.waitBulkiHeader();
+        Assert.assertEquals("Начинки", mainPage.checkCurrentTabHeaderText());
+        mainPage.clickBulkiButton();
     }
 
     @After

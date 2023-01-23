@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Random;
@@ -49,8 +47,7 @@ public class AccountButtonTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickLoginLkLink();
         AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(AccountProfilePage.profileLink));
+        accountProfilePage.waitAccountProfilePage();
         Assert.assertEquals(AccountProfilePage.PAGE_URL, driver.getCurrentUrl());
     }
 
@@ -60,8 +57,7 @@ public class AccountButtonTest {
         mainPage.clickLoginLkLink();
         AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
         accountProfilePage.clickConstructorButton();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(MainPage.bulkiButton));
+        mainPage.waitMainPage();
         Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
 
@@ -71,8 +67,8 @@ public class AccountButtonTest {
         mainPage.clickLoginLkLink();
         AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
         accountProfilePage.clickExitButton();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(LoginPage.emailField));
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.waitLoginPage();
         Assert.assertEquals(LoginPage.PAGE_URL, driver.getCurrentUrl());
     }
 

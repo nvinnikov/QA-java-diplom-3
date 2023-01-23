@@ -5,6 +5,9 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
+    private final static String api_auth_register = "/api/auth/register";
+    private final static String api_auth_login = "/api/auth/login";
+    private final static String api_auth_user = "/api/auth/user";
 
     public UserClient() {
     }
@@ -15,7 +18,7 @@ public class UserClient {
                 .and()
                 .body(createUser)
                 .when()
-                .post("/api/auth/register");
+                .post(api_auth_register);
     }
 
     public static Response postApiAuthLogin(LoginUser loginUser) {
@@ -24,7 +27,7 @@ public class UserClient {
                 .and()
                 .body(loginUser)
                 .when()
-                .post("/api/auth/login");
+                .post(api_auth_login);
     }
 
     public static Response deleteApiAuthUser(String accessToken) {
@@ -33,7 +36,7 @@ public class UserClient {
                 .and()
                 .header("authorization", accessToken)
                 .when()
-                .delete("/api/auth/user");
+                .delete(api_auth_user);
     }
 
     public static Response getApiAuthUser(String accessToken) {
@@ -42,14 +45,14 @@ public class UserClient {
                 .and()
                 .header("authorization", accessToken)
                 .when()
-                .get("/api/auth/user");
+                .get(api_auth_user);
     }
 
     public static Response getApiAuthUser() {
         return given()
                 .header("Content-type", "application/json")
                 .when()
-                .get("/api/auth/user");
+                .get(api_auth_user);
     }
 
     public static Response patchApiAuthUser(String accessToken, CreateUser createUser) {
@@ -60,7 +63,7 @@ public class UserClient {
                 .and()
                 .body(createUser)
                 .when()
-                .patch("/api/auth/user");
+                .patch(api_auth_user);
     }
 
     public static Response patchApiAuthUser(CreateUser createUser) {
@@ -69,7 +72,7 @@ public class UserClient {
                 .and()
                 .body(createUser)
                 .when()
-                .patch("/api/auth/user");
+                .patch(api_auth_user);
     }
 
 }

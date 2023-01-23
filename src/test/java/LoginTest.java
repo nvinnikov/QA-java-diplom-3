@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Random;
@@ -47,8 +45,7 @@ public class LoginTest {
         loginPage.inputEmail(email);
         loginPage.inputPassword(password);
         loginPage.clickLogin();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(MainPage.bulkiButton));
+        mainPage.waitMainPage();
         Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
 
@@ -62,8 +59,7 @@ public class LoginTest {
         loginPage.inputEmail(email);
         loginPage.inputPassword(password);
         loginPage.clickLogin();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(MainPage.bulkiButton));
+        mainPage.waitMainPage();
         Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
 
@@ -77,8 +73,8 @@ public class LoginTest {
         loginPage.inputEmail(email);
         loginPage.inputPassword(password);
         loginPage.clickLogin();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(MainPage.bulkiButton));
+        MainPage mainPage = new MainPage(driver);
+        mainPage.waitMainPage();
         Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
 
@@ -94,8 +90,8 @@ public class LoginTest {
         loginPage.inputEmail(email);
         loginPage.inputPassword(password);
         loginPage.clickLogin();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(MainPage.bulkiButton));
+        MainPage mainPage = new MainPage(driver);
+        mainPage.waitMainPage();
         Assert.assertEquals(MainPage.PAGE_URL, driver.getCurrentUrl());
     }
 

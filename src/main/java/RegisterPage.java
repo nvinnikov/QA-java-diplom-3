@@ -2,13 +2,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class RegisterPage {
-    public static final String PAGE_URL = "https://stellarburgers.nomoreparties.site/register";
-    public final static By loginButton = By.xpath(".//a[text()='Войти']");
-    public final static By loginError = By.xpath(".//p[text()='Некорректный пароль']");
-    private final static By nameField = By.xpath(".//label[text()='Имя']/../input");
-    private final static By emailField = By.xpath(".//label[text()='Email']/../input");
-    private final static By passwordField = By.xpath(".//label[text()='Пароль']/../input");
-    private final static By registerButton = By.xpath(".//button[text()='Зарегистрироваться']");
+    public static String PAGE_URL = "https://stellarburgers.nomoreparties.site/register";
+    private final By loginButton = By.xpath(".//a[text()='Войти']");
+    private final By loginError = By.xpath(".//p[text()='Некорректный пароль']");
+    private final By nameField = By.xpath(".//label[text()='Имя']/../input");
+    private final By emailField = By.xpath(".//label[text()='Email']/../input");
+    private final By passwordField = By.xpath(".//label[text()='Пароль']/../input");
+    private final By registerButton = By.xpath(".//button[text()='Зарегистрироваться']");
     private final WebDriver driver;
 
     public RegisterPage(WebDriver driver) {
