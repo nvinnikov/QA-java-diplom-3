@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-import java.util.Objects;
 import java.util.Random;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -74,7 +73,7 @@ public class RegisterTest {
         Gson gson = new Gson();
         api.LoginUserResponse loginUserResponse = gson.fromJson(responseString, api.LoginUserResponse.class);
         String accessToken = loginUserResponse.getAccessToken();
-        if(!Objects.equals(accessToken, null)) {
+        if (accessToken != null) {
             api.UserClient.deleteApiAuthUser(accessToken).then().assertThat().body("success", equalTo(true))
                     .and()
                     .body("message", equalTo("User successfully removed"))
@@ -82,6 +81,7 @@ public class RegisterTest {
                     .statusCode(202);
         }
     }
+
     @After
     public void cleanUp() {
         driver.quit();

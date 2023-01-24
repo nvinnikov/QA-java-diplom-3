@@ -1,4 +1,3 @@
-import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +11,6 @@ public class MainPage {
     private final By loginLkLink = By.xpath(".//p[text()='Личный Кабинет']");
     private final By loginLkButton = By.xpath(".//button[text()='Войти в аккаунт']");
     private final By currentTabHeader = By.xpath(".//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span");
-    private final By anotherTabHeader = By.xpath(".//div[@class='tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']/span");
 
     private final WebDriver driver;
 
@@ -47,30 +45,19 @@ public class MainPage {
     public String checkCurrentTabHeaderText() {
         return driver.findElement(currentTabHeader).getText();
     }
-//    public void checkNachinkiHeader() {
-//
-//    }
-//    public void checkBulkiHeader() {
-//        driver.findElement(currentTabHeader).getText();
-//    }
-//    public void checkSouseHeader() {
-//        driver.findElement(currentTabHeader).getText();
-//    }
 
     public void waitMainPage() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.elementToBeClickable(bulkiButton));
     }
+
     public void waitNachinkiHeader() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.elementToBeClickable(nachinkiButton));
     }
+
     public void waitBulkiHeader() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.elementToBeClickable(bulkiButton));
-    }
-    public void waitSouseHeader() {
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(souseButton));
     }
 }

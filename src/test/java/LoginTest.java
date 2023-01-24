@@ -1,6 +1,4 @@
-import com.google.gson.Gson;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -99,14 +97,7 @@ public class LoginTest {
     public void cleanUp() {
         driver.quit();
         api.LoginUser loginUser = new api.LoginUser(email, password);
-        Response response = api.UserClient.postApiAuthLogin(loginUser);
-        response.then().assertThat().body("success", equalTo(true))
-                .and()
-                .statusCode(200);
-        String responseString = response.body().asString();
-        Gson gson = new Gson();
-        api.LoginUserResponse loginUserResponse = gson.fromJson(responseString, api.LoginUserResponse.class);
-        String accessToken = loginUserResponse.getAccessToken();
+        String accessToken = api.UserClient.getTokenFromApiAuthLogin(loginUser);
         api.UserClient.deleteApiAuthUser(accessToken).then().assertThat().body("success", equalTo(true))
                 .and()
                 .body("message", equalTo("User successfully removed"))
